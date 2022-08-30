@@ -17,7 +17,8 @@ class StepFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'recipe_id' => $this->faker->numberBetween(1, 10),
+            'step' => $this->faker->sentence(),
         ];
     }
 }
