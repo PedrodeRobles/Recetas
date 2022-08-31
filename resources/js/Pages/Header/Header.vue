@@ -17,10 +17,10 @@
                         Recetario
                     </p>
                 </Link>
-                <Link class="flex items-center space-x-4 cursor-pointer">
+                <Link :href="route('recipe.create')" class="flex items-center space-x-4 cursor-pointer">
                     <img src="../../../img/add.png" alt="Tecetario" class="w-8">
                     <p class="text-xl text-gray-800 hover:text-indigo-700">
-                        Agregar Receta
+                        Nueva Receta
                     </p>
                 </Link>
                 <Link class="flex items-center space-x-4 cursor-pointer">
@@ -57,10 +57,12 @@
 
 <script>
 import Menu from './Menu.vue';
+import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {
-        Menu
+        Menu,
+        Link
     },
     data() {
         return {

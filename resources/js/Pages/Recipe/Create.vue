@@ -1,0 +1,129 @@
+<template>
+    <Header>
+    </Header>
+
+    <div class="flex justify-center pt-28 px-4">
+        <div>
+            <h1 class="text-2xl text-center">
+                Nueva receta
+            </h1>
+            <form @submit.prevent="submit" class="mt-10 space-y-4">
+                <div>
+                    <p>Nombre</p>
+                    <input 
+                        type="text" 
+                        v-model="form.name"
+                        class="rounded-md border border-gray-500 w-full">
+                </div>
+                <div>
+                    <p>Porciones</p>
+                    <div class="flex space-x-2">
+                        <img 
+                            src="../../../img/less.png" 
+                            alt="Restar" 
+                            class="bg-indigo-600 w-10 rounded-md cursor-pointer"
+                            @click="less">
+                        <input 
+                            type="number" 
+                            v-model="form.portions"
+                            class="rounded-md text-center"
+                            >
+                        <img 
+                            src="../../../img/plus.png" 
+                            alt="Sumar" 
+                            class="bg-indigo-600 w-10 rounded-md cursor-pointer"
+                            @click="add">
+                    </div>
+                </div>
+                <div>
+                    <p>Descripción</p>
+                    <textarea cols="34" rows="3" class="rounded-md"></textarea>
+                </div>
+                <div>
+                    <p>Foto</p>
+                    <input type="file" accept="image/*">
+                </div>
+                
+                <div>
+                    <h2 class="text-xl text-center">
+                        Ingredientes
+                    </h2>
+                    <div class="flex justify-around">
+                        <p>
+                            Cantidad
+                        </p>
+                        <p>
+                            Unidad medida
+                        </p>
+                        <p class="">
+                            Ingrediente
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <div>
+                            <input type="number" class="w-28">
+                        </div>
+                        <div>
+                            <select>
+                                <option value="Al gusto">Al gusto</option>
+                                <option value="Gramo">Gramo</option>
+                                <option value="Kilogramo">Kilogramo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input 
+                                type="text" 
+                                placeholder="Nombre"
+                                class="w-28">
+                        </div>
+                    </div>
+                    <div class="flex justify-center items-center space-x-2 mt-2">
+                        <p class="text-blue-600 hover:text-blue-500">
+                            Agregar ingrediente
+                        </p>
+                        <img 
+                            src="../../../img/plus.png" 
+                            alt="Agregar ingrediente"
+                            class="bg-blue-600 hover:bg-blue-500 w-8 rounded-md">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</template>
+
+<script>
+import Header from '../Header/Header.vue';
+import { Link } from '@inertiajs/inertia-vue3';
+
+export default {
+    components: {
+        Header,
+        Link
+    },
+    data() {
+        return {
+            form: {
+                name: '',
+                description: '',
+                portions: 1,
+                image: '',
+            }
+        }
+    },
+    methods: {
+        submit() {
+            this.$inertia.post(this.route('recipe.store'), this.form);
+        },
+        less() {
+            if (this.form.portions != 1) {
+                this.form.portions += - 1;
+            }
+        },
+        add() {
+            this.form.portions += 1;
+        }
+    },
+}
+</script>

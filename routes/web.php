@@ -27,3 +27,4 @@ Route::middleware([
 
 
 Route::get('/', [RecipeController::class, 'index'])->name('recipe.index');
+Route::get('nueva-receta', [RecipeController::class, 'create'])->name('recipe.create');
