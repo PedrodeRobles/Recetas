@@ -8,9 +8,13 @@ use Inertia\Inertia;
 
 class RecipeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $recipes = Recipe::latest()->get();
+        // $recipes = Recipe::latest()->get();
+
+        $recipes = Recipe::where('name', 'LIKE', "%$request->q%")
+                ->orderBy('id', 'DESC')
+                ->get();
 
         return Inertia::render('Recipe/Index', ['recipes' => $recipes]);
     }
