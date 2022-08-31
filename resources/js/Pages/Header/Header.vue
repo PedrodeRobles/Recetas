@@ -11,7 +11,7 @@
 
             <!-- Options medium to + screen -->
             <div class="invisible h-0 md:visible md:h-10 md:flex md:items-center md:space-x-24 md:px-2">
-                <Link class="flex items-center space-x-4 cursor-pointer">
+                <Link :href="route('recipe.index')" class="flex items-center space-x-4 cursor-pointer">
                     <img src="../../../img/chef.png" alt="Tecetario" class="w-8">
                     <p class="text-xl text-gray-800 hover:text-indigo-700">
                         Recetario

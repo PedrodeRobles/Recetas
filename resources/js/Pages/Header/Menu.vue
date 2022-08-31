@@ -1,13 +1,13 @@
 <template>
     <div class="flex justify-center p-4 border-b border-gray-500">
         <div class="space-y-3">
-            <Link class="flex items-center space-x-4 cursor-pointer">
+            <Link :href="route('recipe.index')" class="flex items-center space-x-4 cursor-pointer">
                 <img src="../../../img/chef.png" alt="Tecetario" class="w-8">
                 <p class="text-xl text-gray-800 hover:text-indigo-700">
                     Recetario
                 </p>
             </Link>
-            <Link class="flex items-center space-x-4 cursor-pointer">
+            <Link :href="route('recipe.create')" class="flex items-center space-x-4 cursor-pointer">
                 <img src="../../../img/add.png" alt="Tecetario" class="w-8">
                 <p class="text-xl text-gray-800 hover:text-indigo-700">
                     Agregar Receta
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { Link } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {

@@ -59,7 +59,7 @@
                             Ingrediente
                         </p>
                     </div>
-                    <div class="flex items-center" v-for="ingredient in form.ingredients" :key="ingredient.id">
+                    <div class="flex items-center mb-2 md:space-x-4" v-for="ingredient in form.ingredients" :key="ingredient.id">
                         <div>
                             <input v-model="ingredient.amount" type="number" class="w-28">
                         </div>
