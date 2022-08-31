@@ -59,12 +59,12 @@
                             Ingrediente
                         </p>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-for="ingredient in form.ingredients" :key="ingredient.id">
                         <div>
-                            <input v-model="form.amount" type="number" class="w-28">
+                            <input v-model="ingredient.amount" type="number" class="w-28">
                         </div>
                         <div>
-                            <select v-model="form.unit_of_measurement">
+                            <select v-model="ingredient.unit_of_measurement">
                                 <option value="Al gusto">Al gusto</option>
                                 <option value="Gramo">Gramo</option>
                                 <option value="Kilogramo">Kilogramo</option>
@@ -75,10 +75,12 @@
                                 type="text" 
                                 placeholder="Nombre"
                                 class="w-28"
-                                v-model="form.ingredient">
+                                v-model="ingredient.ingredient">
                         </div>
                     </div>
-                    <div class="flex justify-center items-center space-x-2 mt-2">
+                    <div 
+                        class="flex justify-center items-center space-x-2 mt-2"
+                        @click="agregarIngrediente()">
                         <p class="text-blue-600 hover:text-blue-500">
                             Agregar ingrediente
                         </p>
@@ -113,9 +115,7 @@ export default {
                 description: '',
                 portions: 1,
                 image: '',
-                ingredient: '',
-                amount: 1,
-                unit_of_measurement: '',
+                ingredients: [],
             }
         }
     },
@@ -133,7 +133,14 @@ export default {
         },
         add() {
             this.form.portions += 1;
-        }
+        },
+        agregarIngrediente() {
+            this.form.ingredients.push({
+                ingredient: "",
+                amount: 1,
+                unit_of_measurement: "",
+            });
+        },
     },
 }
 </script>
