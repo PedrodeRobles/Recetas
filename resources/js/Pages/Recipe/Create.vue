@@ -22,7 +22,7 @@
                             src="../../../img/less.png" 
                             alt="Restar" 
                             class="bg-indigo-600 w-10 rounded-md cursor-pointer"
-                            @click="less">
+                            @click="lessPortion">
                         <input 
                             type="number" 
                             v-model="form.portions"
@@ -32,7 +32,7 @@
                             src="../../../img/plus.png" 
                             alt="Sumar" 
                             class="bg-indigo-600 w-10 rounded-md cursor-pointer"
-                            @click="add">
+                            @click="addPortion">
                     </div>
                 </div>
                 <div>
@@ -80,7 +80,7 @@
                     </div>
                     <div 
                         class="flex justify-center items-center space-x-2 mt-2"
-                        @click="agregarIngrediente()">
+                        @click="addIngredient()">
                         <p class="text-blue-600 hover:text-blue-500">
                             Agregar ingrediente
                         </p>
@@ -126,15 +126,15 @@ export default {
             }
             this.$inertia.post(this.route('recipe.store'), this.form);
         },
-        less() {
+        lessPortion() {
             if (this.form.portions != 1) {
                 this.form.portions += - 1;
             }
         },
-        add() {
+        addPortion() {
             this.form.portions += 1;
         },
-        agregarIngrediente() {
+        addIngredient() {
             this.form.ingredients.push({
                 ingredient: "",
                 amount: 1,
