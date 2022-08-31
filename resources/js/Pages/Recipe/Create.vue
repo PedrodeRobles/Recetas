@@ -37,11 +37,11 @@
                 </div>
                 <div>
                     <p>Descripción</p>
-                    <textarea cols="34" rows="3" class="rounded-md"></textarea>
+                    <textarea cols="34" rows="3" class="rounded-md" v-model="form.description"></textarea>
                 </div>
                 <div>
                     <p>Foto</p>
-                    <input type="file" accept="image/*">
+                    <input type="file" accept="image/*" ref="image">
                 </div>
                 
                 <div>
@@ -55,16 +55,16 @@
                         <p>
                             Unidad medida
                         </p>
-                        <p class="">
+                        <p>
                             Ingrediente
                         </p>
                     </div>
                     <div class="flex items-center">
                         <div>
-                            <input type="number" class="w-28">
+                            <input v-model="form.amount" type="number" class="w-28">
                         </div>
                         <div>
-                            <select>
+                            <select v-model="form.unit_of_measurement">
                                 <option value="Al gusto">Al gusto</option>
                                 <option value="Gramo">Gramo</option>
                                 <option value="Kilogramo">Kilogramo</option>
@@ -74,7 +74,8 @@
                             <input 
                                 type="text" 
                                 placeholder="Nombre"
-                                class="w-28">
+                                class="w-28"
+                                v-model="form.ingredient">
                         </div>
                     </div>
                     <div class="flex justify-center items-center space-x-2 mt-2">
@@ -87,6 +88,9 @@
                             class="bg-blue-600 hover:bg-blue-500 w-8 rounded-md">
                     </div>
                 </div>
+                <button class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-md">
+                    Guardar
+                </button>
             </form>
         </div>
     </div>
@@ -109,11 +113,17 @@ export default {
                 description: '',
                 portions: 1,
                 image: '',
+                ingredient: '',
+                amount: 1,
+                unit_of_measurement: '',
             }
         }
     },
     methods: {
         submit() {
+            if (this.$refs.image) {
+                this.form.image = this.$refs.image.files[0];
+            }
             this.$inertia.post(this.route('recipe.store'), this.form);
         },
         less() {
