@@ -87,7 +87,37 @@
                         <img 
                             src="../../../img/plus.png" 
                             alt="Agregar ingrediente"
-                            class="bg-blue-600 hover:bg-blue-500 w-8 rounded-md">
+                            class="bg-blue-600 p-1 hover:bg-blue-500 w-8 rounded-md">
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div>
+                        <h2 class="text-xl text-center">
+                            Pasos
+                        </h2>
+                        <div 
+                            class="flex space-x-2 items-center"
+                            v-for="step in form.steps" :key="step.id"
+                        >
+                            <input 
+                                type="text" 
+                                class="w-34"
+                                v-model="step.step"
+                            >
+                        </div>
+                        <div 
+                            class="flex justify-center items-center space-x-2 mt-2"
+                            @click="addStep()">
+                            <p class="text-blue-600 hover:text-blue-500">
+                                Agregar paso
+                            </p>
+                            <img 
+                                src="../../../img/plus.png" 
+                                alt="Agregar ingrediente"
+                                class="bg-blue-600 p-1 hover:bg-blue-500 w-8 rounded-md"
+                            >
+                        </div>
+                        
                     </div>
                 </div>
                 <button class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-md">
@@ -116,6 +146,7 @@ export default {
                 portions: 1,
                 image: '',
                 ingredients: [],
+                steps: [],
             }
         }
     },
@@ -139,6 +170,11 @@ export default {
                 ingredient: "",
                 amount: 1,
                 unit_of_measurement: "",
+            });
+        },
+        addStep() {
+            this.form.steps.push({
+                step: "",
             });
         },
     },

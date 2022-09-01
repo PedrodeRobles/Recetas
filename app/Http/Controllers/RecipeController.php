@@ -45,6 +45,15 @@ class RecipeController extends Controller
             );
         }
 
+        /*Cycle through steps and save them*/
+        foreach ($request->steps as $index => $data) {
+            Step::create(
+                ['recipe_id' => $lastRecipe->id] 
+                +
+                $request->steps[$index]
+            );
+        }
+
         return "guardado";
     }
 
