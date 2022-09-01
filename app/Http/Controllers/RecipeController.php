@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RecipeRequest;
 use App\Models\Recipe;
 use App\Models\Ingredient;
 use App\Models\Step;
@@ -25,7 +26,7 @@ class RecipeController extends Controller
         return Inertia::render('Recipe/Create');
     }
 
-    public function store(Request $request)
+    public function store(RecipeRequest $request)
     {
         Recipe::create([
             'name' => $request->name,

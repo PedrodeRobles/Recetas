@@ -13,7 +13,9 @@
                     <input 
                         type="text" 
                         v-model="form.name"
-                        class="rounded-md border border-gray-500 w-full">
+                        class="rounded-md border border-gray-500 w-full"
+                        required
+                    >
                 </div>
                 <div>
                     <p>Porciones</p>
@@ -27,6 +29,7 @@
                             type="number" 
                             v-model="form.portions"
                             class="rounded-md text-center"
+                            required
                             >
                         <img 
                             src="../../../img/plus.png" 
@@ -37,11 +40,11 @@
                 </div>
                 <div>
                     <p>Descripción</p>
-                    <textarea cols="34" rows="3" class="rounded-md" v-model="form.description"></textarea>
+                    <textarea cols="34" rows="3" class="rounded-md" v-model="form.description" required></textarea>
                 </div>
                 <div>
                     <p>Foto</p>
-                    <input type="file" accept="image/*" ref="image">
+                    <input type="file" accept="image/*" ref="image" required>
                 </div>
                 
                 <div>
@@ -62,10 +65,10 @@
                     </div>
                     <div class="flex items-center mb-2 md:space-x-4" v-for="ingredient in form.ingredients" :key="ingredient.id">
                         <div>
-                            <input v-model="ingredient.amount" type="number" class="w-20">
+                            <input v-model="ingredient.amount" type="number" class="w-20" required>
                         </div>
                         <div>
-                            <select v-model="ingredient.unit_of_measurement">
+                            <select v-model="ingredient.unit_of_measurement" required>
                                 <option value="Al gusto">Al gusto</option>
                                 <option value="Gramo">Gramo</option>
                                 <option value="Kilogramo">Kilogramo</option>
@@ -76,7 +79,9 @@
                                 type="text" 
                                 placeholder="Nombre"
                                 class="w-28"
-                                v-model="ingredient.ingredient">
+                                v-model="ingredient.ingredient"
+                                required
+                                >
                         </div>
                         <div>
                             <img 
@@ -114,6 +119,7 @@
                                     type="text" 
                                     class="w-34 rounded-md"
                                     v-model="step.step"
+                                    required
                                 >
                             </div>
                             <div>
