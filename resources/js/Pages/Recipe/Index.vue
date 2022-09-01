@@ -37,11 +37,13 @@
                                 {{ recipe.description }}
                             </p>
                         </div>
-                        <div class="flex justify-center">
-                            <p class="text-indigo-700 text-lg py-2">
-                                Ver
-                            </p>
-                        </div>
+                        <Link :href="route('recipe.show', recipe.id)">
+                            <div class="flex justify-center text-indigo-700 hover:text-white hover:bg-indigo-500 cursor-pointer rounded-b-md">
+                                <p class=" text-lg py-2">
+                                    Ver
+                                </p>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -53,11 +55,13 @@
 
 <script>
 import Header from '../Header/Header.vue';
+import { Link } from '@inertiajs/inertia-vue3';
 
 
 export default {
     components: {
-        Header
+        Header,
+        Link
     },
     props: {
         recipes: Array

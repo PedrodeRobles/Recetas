@@ -29,3 +29,4 @@ Route::middleware([
 Route::get('/', [RecipeController::class, 'index'])->name('recipe.index');
 Route::get('nueva-receta', [RecipeController::class, 'create'])->name('recipe.create');
 Route::post('agregar-receta', [RecipeController::class, 'store'])->name('recipe.store');
+Route::get('receta/{recipe}', [RecipeController::class, 'show'])->name('recipe.show');
