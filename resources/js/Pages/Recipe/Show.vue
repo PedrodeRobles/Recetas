@@ -2,56 +2,64 @@
     <Header>
     </Header>
 
-    <div class="flex justify-center pt-28 px-4">
+    <div class="flex justify-center pt-24 px-4">
         <div>
-            <div>
-                <img src="../../../img/comida.jpg" alt="Foto de la comida">
-            </div>
-            <div>
-                <h1 class="text-[2rem]">
-                    {{ recipe.name }}
-                </h1>
-                <p>
-                    {{ recipe.description }}
-                </p>
-                <p class="text-lg">
-                    Porciones: {{ portions }}
-                </p>
+            <div class="md:flex md:space-x-6">
                 <div>
-                    <p>Porciones</p>
-                    <div class="flex space-x-2">
-                        <img 
-                            src="../../../img/less.png" 
-                            alt="Restar" 
-                            class="bg-indigo-600 w-10 rounded-md cursor-pointer"
-                            @click="lessPortion">
-                        <input 
-                            type="number" 
-                            v-model="portions"
-                            class="rounded-md text-center"
-                            required
-                            >
-                        <img 
-                            src="../../../img/plus.png" 
-                            alt="Sumar" 
-                            class="bg-indigo-600 w-10 rounded-md cursor-pointer"
-                            @click="addPortion">
+                    <img 
+                        src="../../../img/comida.jpg" 
+                        alt="Foto de la comida"
+                        class="w-full md:w-[30rem]">
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <div class="space-y-3">
+                        <h1 class="text-[2.5rem]">
+                            {{ recipe.name }}
+                        </h1>
+                        <p class="md:w-[25rem]">
+                            {{ recipe.description }}
+                        </p>
+                        <p class="text-lg">
+                            Porciones: {{ portions }}
+                        </p>
                     </div>
-                    <p class="text-gray-700">
-                        Usted puede cambiar las porciones. La cantidad de ingredientes se ajustará
-                    </p>
+                    <div class="mt-5 md:mt-10 space-y-2">
+                        <p>Porciones</p>
+                        <div class="flex space-x-2">
+                            <img 
+                                src="../../../img/less.png" 
+                                alt="Restar" 
+                                class="bg-indigo-600 w-10 rounded-md cursor-pointer"
+                                @click="lessPortion">
+                            <input 
+                                type="number" 
+                                v-model="portions"
+                                class="rounded-md text-center"
+                                required
+                                >
+                            <img 
+                                src="../../../img/plus.png" 
+                                alt="Sumar" 
+                                class="bg-indigo-600 w-10 rounded-md cursor-pointer"
+                                @click="addPortion">
+                        </div>
+                        <p class="text-gray-700">
+                            Usted puede cambiar las porciones. La cantidad de ingredientes se ajustará
+                        </p>
+                    </div>
                 </div>
             </div>
+
             <!-- ingredients and steps -->
-            <div>
-                <div>
-                    <h2 class="text-[1.4rem] text-center">
+            <div class="mt-6 space-y-6 md:space-y-0 md:flex justify-evenly md:space-x-28 md:mt-10">
+                <div class="md:w-[20rem]">
+                    <h2 class="text-[2rem] text-center">
                         Ingredientes
                     </h2>
                     <div v-for="ingredient in recipe.ingredients" :key="ingredient.id">
                         <div class="flex items-center mt-2 space-x-2">
                             <input type="checkbox"> 
-                            <div class="flex space-x-1">
+                            <div class="flex justify-start space-x-1">
                                 <p>
                                     <!-- {{ ingredient.amount }} -->
                                     {{ ingredientCalculation(ingredient.amount) }}
@@ -68,7 +76,7 @@
                 </div>
 
                 <div>
-                    <h2 class="text-[1.4rem] text-center">
+                    <h2 class="text-[2rem] text-center">
                         Preparación
                     </h2>
                     <div v-for="step in recipe.steps" :key="step.id">
@@ -78,7 +86,7 @@
                                 <p>
                                     Paso #
                                 </p>
-                                <p class="text-gray-800">
+                                <p class="text-gray-800 w-80">
                                     {{ step.step }}
                                 </p>
                             </div>
