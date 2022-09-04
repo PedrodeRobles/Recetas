@@ -7,6 +7,11 @@
             <h1 class="text-2xl text-center">
                 Nueva receta
             </h1>
+            <div v-show="mesagge != null" class="p-2 bg-green-500">
+                <p>
+                    {{ mesagge }}
+                </p>
+            </div>
             <form @submit.prevent="submit" class="mt-10 space-y-4">
                 <div>
                     <p>Nombre</p>
@@ -174,7 +179,8 @@ export default {
                 image: '',
                 ingredients: [],
                 steps: [],
-            }
+            },
+            mesagge: null,
         }
     },
     methods: {
@@ -183,6 +189,9 @@ export default {
                 this.form.image = this.$refs.image.files[0];
             }
             this.$inertia.post(this.route('recipe.store'), this.form);
+            
+            this.mesagge = "Receta guardada con éxito";
+            return this.mesagge;
         },
         lessPortion() {
             if (this.form.portions != 1) {
