@@ -53,7 +53,8 @@
                             <input type="checkbox"> 
                             <div class="flex space-x-1">
                                 <p>
-                                    {{ ingredient.amount }}
+                                    <!-- {{ ingredient.amount }} -->
+                                    {{ ingredientCalculation(ingredient.amount) }}
                                 </p>
                                 <p>
                                     {{ ingredient.unit_of_measurement }}
@@ -104,11 +105,6 @@ export default {
             portions: this.recipe.portions,
         }
     },
-    computed: {
-        ingredientCalculation() {
-            return "hola";
-        }
-    },
     methods: {
         lessPortion() {
             if (this.portions != 1) {
@@ -118,6 +114,10 @@ export default {
         addPortion() {
             this.portions += 1;
         },
+        ingredientCalculation(ingredient_amount) {
+            let ingredienPortions = (this.portions * ingredient_amount) / this.recipe.portions;
+            return ingredienPortions.toFixed(2);
+        }
     }
 }
 </script>
