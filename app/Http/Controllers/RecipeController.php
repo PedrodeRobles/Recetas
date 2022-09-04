@@ -60,7 +60,12 @@ class RecipeController extends Controller
 
     public function show(Recipe $recipe)
     {
-        return Inertia::render('Recipe/Show', ['recipe', $recipe]);
+        // $recipe->load('ingredients', 'steps');
+        // dd($recipe->ingredients[0]);
+
+        return Inertia::render('Recipe/Show', [
+            'recipe' => $recipe->load('ingredients', 'steps')
+        ]);
     }
 
     public function edit(Recipe $recipe)

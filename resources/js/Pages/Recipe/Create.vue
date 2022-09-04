@@ -70,8 +70,9 @@
                         <div>
                             <select v-model="ingredient.unit_of_measurement" required>
                                 <option value="Al gusto">Al gusto</option>
-                                <option value="Gramo">Gramo</option>
-                                <option value="Kilogramo">Kilogramo</option>
+                                <option value="Gramo(S)">Gramo</option>
+                                <option value="Kilogramo(s)">Kilogramo</option>
+                                <option value="Litro(s)">Litro</option>
                             </select>
                         </div>
                         <div>
