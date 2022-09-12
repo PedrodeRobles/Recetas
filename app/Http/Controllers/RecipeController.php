@@ -94,6 +94,6 @@ class RecipeController extends Controller
 
     public function destroy(Recipe $recipe)
     {
-        //
+        $recipe->delete();
     }
 }

@@ -53,12 +53,12 @@
                                         </Link>
                                     </div>
                                     <div>
-                                        <Link>
+                                        <button @click="destroy(recipe.id)">
                                             <img 
                                                 src="../../../img/trash.png" 
                                                 alt="Eliminar receta"
-                                                class="w-8 bg-red-500 rounded-md">
-                                        </Link>
+                                                class="w-8 bg-red-500 rounded-md cursor-pointer">
+                                        </button>
                                     </div>
                                 </div>
                             </td>
@@ -94,10 +94,12 @@ export default {
             this.$inertia.get(this.route('recipe.manage', {q: value}), {}, {preserveState: true})
         }
     },
-    // filters: {
-    //     liveSubstr: function(string) {
-    //     return string.substring(0,2) + '...';
-    //     }
-    // },
+    methods: {
+        destroy(id) {
+            if(confirm("¿Desea eliminar esta receta?")) {
+                this.$inertia.delete(this.route('recipe.destroy', id))
+            }
+        }
+    }
 }
 </script>

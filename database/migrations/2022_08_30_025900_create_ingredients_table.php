@@ -16,7 +16,8 @@ return new class extends Migration
             $table->float('amount');
             $table->string('unit_of_measurement');
 
-            $table->foreign('recipe_id')->references('id')->on('recipes');
+            $table->foreign('recipe_id')->references('id')->on('recipes')
+            ->onDelete('cascade');
 
             $table->timestamps();
         });
