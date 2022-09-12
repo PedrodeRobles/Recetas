@@ -23,7 +23,7 @@
                         Nueva Receta
                     </p>
                 </Link>
-                <Link class="flex items-center space-x-4 cursor-pointer">
+                <Link :href="route('recipe.manage')" class="flex items-center space-x-4 cursor-pointer">
                     <img src="../../../img/book.png" alt="Tecetario" class="w-8">
                     <p class="text-xl text-gray-800 hover:text-indigo-700">
                         Gestionar recetas

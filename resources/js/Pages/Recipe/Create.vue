@@ -7,7 +7,8 @@
             <h1 class="text-2xl text-center">
                 Nueva receta
             </h1>
-            <div v-show="mesagge != null" class="p-2 bg-green-500">
+            {{ error }}
+            <div v-show="mesagge != null" class="p-2 bg-green-500 text-white rounded-md">
                 <p>
                     {{ mesagge }}
                 </p>
@@ -170,6 +171,9 @@ export default {
         Header,
         Link
     },
+    props: {
+        error: String
+    },
     data() {
         return {
             form: {
@@ -190,6 +194,13 @@ export default {
             }
             this.$inertia.post(this.route('recipe.store'), this.form);
             
+            this.form.name = '';
+            this.form.description = '';
+            this.form.portions = 1;
+            this.form.image = '';
+            this.form.ingredients = [];
+            this.form.steps = [];
+
             this.mesagge = "Receta guardada con éxito";
             return this.mesagge;
         },

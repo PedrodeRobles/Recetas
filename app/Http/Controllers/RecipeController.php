@@ -70,9 +70,21 @@ class RecipeController extends Controller
         ]);
     }
 
+    public function manage(Request $request)
+    {
+        // $recipes = Recipe::latest()->get();
+
+        $recipes = Recipe::where('name', 'LIKE', "%$request->q%")
+                ->orWhere('description', 'LIKE', "%$request->q%")
+                ->orderBy('id', 'DESC')
+                ->get();
+
+        return Inertia::render('Recipe/Manage', ['recipes' => $recipes]);
+    }
+
     public function edit(Recipe $recipe)
     {
-        //
+        
     }
 
     public function update(Request $request, Recipe $recipe)
