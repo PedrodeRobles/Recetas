@@ -27,7 +27,7 @@
                         <img 
                             :src="recipe.image"
                             alt="Foro de la comida"
-                            class="rounded-t-lg w-full h-full"
+                            class="rounded-t-lg w-full h-[15rem] object-fill "
                         >
                         <div class="py-4 pl-2 space-y-2 border-b border-b-gray-300">
                             <h2 class="text-2xl">
