@@ -50,7 +50,7 @@
                 </div>
                 <div>
                     <p>Foto</p>
-                    <input type="file" accept="image/*" ref="image" required>
+                    <input type="file" accept="image/*" ref="photo" required>
                 </div>
                 
                 <div>
@@ -189,8 +189,8 @@ export default {
     },
     methods: {
         submit() {
-            if (this.$refs.image) {
-                this.form.image = this.$refs.image.files[0];
+            if (this.$refs.photo) {
+                this.form.image = this.$refs.photo.files[0];
             }
             this.$inertia.post(this.route('recipe.store'), this.form);
             

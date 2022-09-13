@@ -7,17 +7,17 @@
             <div class="md:flex md:space-x-6">
                 <div>
                     <img 
-                        src="../../../img/comida.jpg" 
+                        :src="recipe[0].image"
                         alt="Foto de la comida"
                         class="w-full md:w-[30rem]">
                 </div>
                 <div class="mt-4 md:mt-0">
                     <div class="space-y-3">
                         <h1 class="text-[2.5rem]">
-                            {{ recipe.name }}
+                            {{ recipe[0].name }}
                         </h1>
                         <p class="md:w-[25rem]">
-                            {{ recipe.description }}
+                            {{ recipe[0].description }}
                         </p>
                         <p class="text-lg">
                             Porciones: {{ portions }}
@@ -56,7 +56,7 @@
                     <h2 class="text-[2rem] text-center">
                         Ingredientes
                     </h2>
-                    <div v-for="ingredient in recipe.ingredients" :key="ingredient.id">
+                    <div v-for="ingredient in recipe[0].ingredients" :key="ingredient.id">
                         <div class="flex items-center mt-2 space-x-2">
                             <input type="checkbox"> 
                             <div class="flex justify-start space-x-1">
@@ -79,7 +79,7 @@
                     <h2 class="text-[2rem] text-center">
                         Preparación
                     </h2>
-                    <div v-for="step in recipe.steps" :key="step.id">
+                    <div v-for="step in recipe[0].steps" :key="step.id">
                         <div class="flex items-center mt-2 space-x-3">
                             <input type="checkbox"> 
                             <div>
@@ -106,11 +106,11 @@ export default {
         Header,
     },
     props: {
-        recipe: Object
+        recipe: Array
     },
     data() {
         return {
-            portions: this.recipe.portions,
+            portions: this.recipe[0].portions,
         }
     },
     methods: {
@@ -123,7 +123,7 @@ export default {
             this.portions += 1;
         },
         ingredientCalculation(ingredient_amount) {
-            let ingredienPortions = (this.portions * ingredient_amount) / this.recipe.portions;
+            let ingredienPortions = (this.portions * ingredient_amount) / this.recipe[0].portions;
             return ingredienPortions.toFixed(2);
         }
     }

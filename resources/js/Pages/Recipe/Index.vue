@@ -25,8 +25,8 @@
                 <div v-for="recipe in recipes" :key="recipe.id" class="col-span-1 px-2 sm:px-4">
                     <div class="shadow-lg rounded-lg">
                         <img 
-                            src="../../../img/comida.jpg" 
-                            alt="Food"
+                            :src="recipe.image"
+                            alt="Foro de la comida"
                             class="rounded-t-lg w-full h-full"
                         >
                         <div class="py-4 pl-2 space-y-2 border-b border-b-gray-300">
