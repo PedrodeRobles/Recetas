@@ -31,4 +31,5 @@ Route::get('nueva-receta', [RecipeController::class, 'create'])->name('recipe.cr
 Route::post('agregar-receta', [RecipeController::class, 'store'])->name('recipe.store');
 Route::get('receta/{recipe}', [RecipeController::class, 'show'])->name('recipe.show');
 Route::get('gestion', [RecipeController::class, 'manage'])->name('recipe.manage');
+Route::get('gestion/{recipe}/editar-receta', [RecipeController::class, 'edit'])->name('recipe.edit');
 Route::delete('eliminar-receta/{recipe}', [RecipeController::class, 'destroy'])->name('recipe.destroy');

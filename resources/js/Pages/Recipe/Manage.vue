@@ -45,7 +45,7 @@
                             <td class="flex justify-center mt-6 sm:mt-12 md:mt-0 md:py-4 md:px-2">
                                 <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex">
                                     <div>
-                                        <Link>
+                                        <Link :href="route('recipe.edit', recipe.id)">
                                             <img 
                                                 src="../../../img/edit.png" 
                                                 alt="Editar receta"

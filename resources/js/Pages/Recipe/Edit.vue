@@ -5,7 +5,7 @@
     <div class="flex justify-center pt-28 px-4">
         <div>
             <h1 class="text-2xl text-center">
-                Nueva receta
+                Editar receta
             </h1>
             {{ error }}
             <div v-show="mesagge != null" class="p-2 bg-green-500 text-white rounded-md">
@@ -89,6 +89,7 @@
                                 v-model="ingredient.ingredient"
                                 required
                                 >
+                            {{ ingredient.id }}
                         </div>
                         <div>
                             <img 
@@ -134,7 +135,7 @@
                                     src="../../../img/trash.png" 
                                     alt="Borrar"
                                     class="bg-red-600 p-1 hover:bg-red-500 w-9 rounded-md"
-                                    @click="deleteStep(step.id)"   
+                                    @click="deleteStep(step.id)" 
                                 >
                             </div>
                         </div>
@@ -162,6 +163,7 @@
 
 </template>
 
+
 <script>
 import Header from '../Header/Header.vue';
 import { Link } from '@inertiajs/inertia-vue3';
@@ -172,38 +174,38 @@ export default {
         Link
     },
     props: {
-        error: String
+        recipe: Object,
     },
     data() {
         return {
             form: {
-                name: '',
-                description: '',
-                portions: 1,
+                name: this.recipe.name,
+                description: this.recipe.description,
+                portions: this.recipe.portions,
                 image: '',
-                ingredients: [],
-                steps: [],
+                ingredients: [...this.recipe.ingredients],
+                steps: [...this.recipe.steps],
             },
             mesagge: null,
         }
     },
     methods: {
-        submit() {
-            if (this.$refs.photo) {
-                this.form.image = this.$refs.photo.files[0];
-            }
-            this.$inertia.post(this.route('recipe.store'), this.form);
+        // submit() {
+        //     if (this.$refs.photo) {
+        //         this.form.image = this.$refs.photo.files[0];
+        //     }
+        //     this.$inertia.post(this.route('recipe.store'), this.form);
             
-            this.form.name = '';
-            this.form.description = '';
-            this.form.portions = 1;
-            this.form.image = '';
-            this.form.ingredients = [];
-            this.form.steps = [];
+        //     this.form.name = '';
+        //     this.form.description = '';
+        //     this.form.portions = 1;
+        //     this.form.image = '';
+        //     this.form.ingredients = [];
+        //     this.form.steps = [];
 
-            this.mesagge = "Receta guardada con éxito";
-            return this.mesagge;
-        },
+        //     this.mesagge = "Receta guardada con éxito";
+        //     return this.mesagge;
+        // },
         lessPortion() {
             if (this.form.portions != 1) {
                 this.form.portions += - 1;
@@ -225,10 +227,18 @@ export default {
             });
         },
         deleteIngredient(id) {
-            this.form.ingredients.splice(id, 1);
+            if(id != null) {
+                this.form.ingredients.splice(id - 1, 1);
+            } else {
+                this.form.ingredients.pop();
+            }
         },
         deleteStep(id) {
-            this.form.steps.splice(id, 1);
+            if(id != null) {
+                this.form.steps.splice(id - 1, 1);
+            } else {
+                this.form.steps.pop();
+            }
         },
     },
 }
