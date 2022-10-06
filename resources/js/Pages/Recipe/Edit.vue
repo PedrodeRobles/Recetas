@@ -13,7 +13,7 @@
                     {{ mesagge }}
                 </p>
             </div>
-            <form @submit.prevent="submit" class="mt-10 space-y-4">
+            <form @submit.prevent="update" class="mt-10 space-y-4">
                 <div>
                     <p>Nombre</p>
                     <input 
@@ -50,7 +50,7 @@
                 </div>
                 <div>
                     <p>Foto</p>
-                    <input type="file" accept="image/*" ref="photo" required>
+                    <input type="file" accept="image/*" ref="photo" @input="form.image = $event.target.files[0]">
                 </div>
                 
                 <div>
@@ -164,82 +164,120 @@
 </template>
 
 
-<script>
+<script setup>
+import { useForm } from '@inertiajs/inertia-vue3';
+import { defineComponent } from '@vue/runtime-core';
+// import { ref } from 'vue';
 import Header from '../Header/Header.vue';
 import { Link } from '@inertiajs/inertia-vue3';
+import { defineProps } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
 
-export default {
-    components: {
-        Header,
-        Link
-    },
-    props: {
-        recipe: Object,
-    },
-    data() {
-        return {
-            form: {
-                name: this.recipe.name,
-                description: this.recipe.description,
-                portions: this.recipe.portions,
-                image: '',
-                ingredients: [...this.recipe.ingredients],
-                steps: [...this.recipe.steps],
-            },
-            mesagge: null,
-        }
-    },
-    methods: {
-        // submit() {
-        //     if (this.$refs.photo) {
-        //         this.form.image = this.$refs.photo.files[0];
-        //     }
-        //     this.$inertia.post(this.route('recipe.store'), this.form);
+defineComponent({
+    Header,
+    Link
+});
+
+const props = defineProps({
+    recipe: Object,
+});
+
+const form = useForm({
+    name: props.recipe.name,
+    description: props.recipe.description,
+    portions: props.recipe.portions,
+    image: '',
+    ingredients: [...props.recipe.ingredients],
+    steps: [...props.recipe.steps],
+});
+
+
+function update() {
+    Inertia.post(`/receta/${props.recipe.id}`, {
+    _method: 'put',
+    name: form.name,
+    description: form.description,
+    portions: form.portions,
+    image: form.image,
+    ingredients: form.ingredients,
+    steps: form.steps,
+})}
+
+// export default {
+//     components: {
+//         Header,
+//         Link
+//     },
+//     props: {
+//         recipe: Object,
+//     },
+//     data() {
+//         return {
+//             form: {
+//                 name: this.recipe.name,
+//                 description: this.recipe.description,
+//                 portions: this.recipe.portions,
+//                 image: '',
+//                 ingredients: [...this.recipe.ingredients],
+//                 steps: [...this.recipe.steps],
+//             },
+//             mesagge: null,
+//         }
+//     },
+//     methods: {
+//         update() {
+//             this.$inertia.put(this.route('recipe.update'), this.form);
+//         },
+//         // submit() {
+//         //     if (this.$refs.photo) {
+//         //         this.form.image = this.$refs.photo.files[0];
+//         //     }
+//         //     this.$inertia.post(this.route('recipe.store'), this.form);
             
-        //     this.form.name = '';
-        //     this.form.description = '';
-        //     this.form.portions = 1;
-        //     this.form.image = '';
-        //     this.form.ingredients = [];
-        //     this.form.steps = [];
+//         //     this.form.name = '';
+//         //     this.form.description = '';
+//         //     this.form.portions = 1;
+//         //     this.form.image = '';
+//         //     this.form.ingredients = [];
+//         //     this.form.steps = [];
 
-        //     this.mesagge = "Receta guardada con éxito";
-        //     return this.mesagge;
-        // },
-        lessPortion() {
-            if (this.form.portions != 1) {
-                this.form.portions += - 1;
-            }
-        },
-        addPortion() {
-            this.form.portions += 1;
-        },
-        addIngredient() {
-            this.form.ingredients.push({
-                ingredient: "",
-                amount: 1,
-                unit_of_measurement: "",
-            });
-        },
-        addStep() {
-            this.form.steps.push({
-                step: "",
-            });
-        },
-        deleteIngredient(id) {
-            if(id != null) {
-                this.form.ingredients.splice(id - 1, 1);
-            } else {
-                this.form.ingredients.pop();
-            }
-        },
-        deleteStep(id) {
-            if(id != null) {
-                this.form.steps.splice(id - 1, 1);
-            } else {
-                this.form.steps.pop();
-            }
-        },
-    },
-}
+//         //     this.mesagge = "Receta guardada con éxito";
+//         //     return this.mesagge;
+//         // },
+//         lessPortion() {
+//             if (this.form.portions != 1) {
+//                 this.form.portions += - 1;
+//             }
+//         },
+//         addPortion() {
+//             this.form.portions += 1;
+//         },
+//         addIngredient() {
+//             this.form.ingredients.push({
+//                 ingredient: "",
+//                 amount: 1,
+//                 unit_of_measurement: "",
+//             });
+//         },
+//         addStep() {
+//             this.form.steps.push({
+//                 step: "",
+//             });
+//         },
+//         deleteIngredient(id) {
+//             if(id != null) {
+//                 this.form.ingredients.splice(id - 1, 1);
+//             } else {
+//                 this.form.ingredients.pop();
+//             }
+//         },
+//         deleteStep(id) {
+//             if(id != null) {
+//                 this.form.steps.splice(id - 1, 1);
+//             } else {
+//                 this.form.steps.pop();
+//             }
+//         },
+//     },
+// }
 </script>

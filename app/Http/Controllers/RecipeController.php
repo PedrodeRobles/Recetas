@@ -79,10 +79,6 @@ class RecipeController extends Controller
                 $request->steps[$index]
             );
         }
-
-        // $mesagge = "Guardadoooo";
-
-        // return $mesagge;
     }
 
     public function show(Recipe $recipe)
@@ -125,7 +121,43 @@ class RecipeController extends Controller
 
     public function update(Request $request, Recipe $recipe)
     {
-        //
+        /*Change image dimension*/
+        $path= $request->file('image');
+            // Resize and encode to required type
+        $img = Image::make($path)->resize(200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode();
+            //Provide the file name with extension 
+        $filename = time(). '.' .$path->getClientOriginalExtension();
+        //Put file with own name
+        Storage::put($filename, $img);
+        //Move file to your location 
+        Storage::move($filename, 'public/recipes/images/' . $filename);
+        /*-----*/
+
+
+        $recipe->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'portions' => $request->portions,
+            'image' => 'recipes/images/' . $filename,
+        ]);
+
+        /*Cycle through ingredients and update them*/
+        foreach ($request->ingredients as $index => $data) {
+            $recipe->ingredients[$index]->update([
+                'amount' => $request->ingredients[$index]['amount'],
+                'ingredient' => $request->ingredients[$index]['ingredient'],
+                'unit_of_measurement' => $request->ingredients[$index]['unit_of_measurement'],
+            ]);
+        }
+
+        /*Cycle through steps and update them*/
+        foreach ($request->steps as $index => $data) {
+            $recipe->steps[$index]->update([
+                'step' => $request->steps[$index]['step'],
+            ]);
+        }
     }
 
     public function destroy(Recipe $recipe)
