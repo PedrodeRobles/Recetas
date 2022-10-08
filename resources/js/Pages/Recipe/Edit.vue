@@ -87,9 +87,8 @@
                                 placeholder="Nombre"
                                 class="w-28"
                                 v-model="ingredient.ingredient"
-                                required
+                                
                                 >
-                            {{ ingredient.id }}
                         </div>
                         <div>
                             <img 
@@ -167,7 +166,6 @@
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3';
 import { defineComponent } from '@vue/runtime-core';
-// import { ref } from 'vue';
 import Header from '../Header/Header.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import { defineProps } from '@inertiajs/inertia-vue3';
@@ -202,6 +200,46 @@ function update() {
     ingredients: form.ingredients,
     steps: form.steps,
 })}
+
+function lessPortion() {
+    if (form.portions != 1) {
+        form.portions += - 1;
+    }
+}
+
+function addPortion() {
+    form.portions += 1;
+}
+
+function addIngredient() {
+    form.ingredients.push({
+        ingredient: "",
+        amount: 1,
+        unit_of_measurement: "",
+    });
+}
+
+function addStep() {
+    form.steps.push({
+        step: "",
+    });
+}
+
+function deleteIngredient(id) {
+    if(id != null) {
+        form.ingredients.splice(id - 1, 1);
+    } else {
+        form.ingredients.pop();
+    }
+}
+
+function deleteStep(id) {
+    if(id != null) {
+        form.steps.splice(id - 1, 1);
+    } else {
+        form.steps.pop();
+    }
+}
 
 // export default {
 //     components: {

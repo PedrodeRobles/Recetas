@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Mockery\Undefined;
 
 class RecipeController extends Controller
 {
@@ -121,35 +122,23 @@ class RecipeController extends Controller
 
     public function update(Request $request, Recipe $recipe)
     {
-        /*Change image dimension*/
-        $path= $request->file('image');
-            // Resize and encode to required type
-        $img = Image::make($path)->resize(200, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->encode();
-            //Provide the file name with extension 
-        $filename = time(). '.' .$path->getClientOriginalExtension();
-        //Put file with own name
-        Storage::put($filename, $img);
-        //Move file to your location 
-        Storage::move($filename, 'public/recipes/images/' . $filename);
-        /*-----*/
-
-
-        $recipe->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'portions' => $request->portions,
-            'image' => 'recipes/images/' . $filename,
-        ]);
-
         /*Cycle through ingredients and update them*/
         foreach ($request->ingredients as $index => $data) {
-            $recipe->ingredients[$index]->update([
-                'amount' => $request->ingredients[$index]['amount'],
-                'ingredient' => $request->ingredients[$index]['ingredient'],
-                'unit_of_measurement' => $request->ingredients[$index]['unit_of_measurement'],
-            ]);
+            
+            /*if ingredient exists it is updated else it´s created*/
+            if( isset($request->ingredients[$index]['id']) == true) {
+                $recipe->ingredients[$index]->update([
+                    'amount' => $request->ingredients[$index]['amount'],
+                    'ingredient' => $request->ingredients[$index]['ingredient'],
+                    'unit_of_measurement' => $request->ingredients[$index]['unit_of_measurement'],
+                ]);
+            } else {
+                Ingredient::create(
+                    ['recipe_id' => $recipe->id] 
+                    +
+                    $request->ingredients[$index]
+                );
+            }
         }
 
         /*Cycle through steps and update them*/
@@ -157,6 +146,33 @@ class RecipeController extends Controller
             $recipe->steps[$index]->update([
                 'step' => $request->steps[$index]['step'],
             ]);
+        }
+
+        if ($request->hasFile('image')) {
+            Storage::delete('public/' . $recipe->image);
+            
+            /*Change image dimension*/
+            $path= $request->file('image');
+                // Resize and encode to required type
+            $img = Image::make($path)->resize(200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->encode();
+                //Provide the file name with extension 
+            $filename = time(). '.' .$path->getClientOriginalExtension();
+            //Put file with own name
+            Storage::put($filename, $img);
+            //Move file to your location 
+            Storage::move($filename, 'public/recipes/images/' . $filename);
+            /*-----*/
+
+            $recipe->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'portions' => $request->portions,
+                'image' => 'recipes/images/' . $filename,
+            ]);
+        } else {
+            $recipe->update( array_filter($request->all()) );
         }
     }
 
