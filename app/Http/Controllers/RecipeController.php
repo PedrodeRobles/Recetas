@@ -148,6 +148,12 @@ class RecipeController extends Controller
             ]);
         }
 
+        /*Delete ingredient when select trash and save*/ 
+        foreach ($request->ingredientIdDelete as $index => $data) {
+            $ingrediente = Ingredient::find($data);
+            $ingrediente->delete();
+        }
+
         if ($request->hasFile('image')) {
             Storage::delete('public/' . $recipe->image);
             

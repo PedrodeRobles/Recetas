@@ -87,7 +87,7 @@
                                 placeholder="Nombre"
                                 class="w-28"
                                 v-model="ingredient.ingredient"
-                                
+                                required
                                 >
                         </div>
                         <div>
@@ -102,6 +102,7 @@
                     <div 
                         class="flex justify-center items-center space-x-2 mt-2 cursor-pointer"
                         @click="addIngredient()">
+                        {{ form.ingredientIdDelete }}
                         <p class="text-blue-600 hover:text-blue-500">
                             Agregar ingrediente
                         </p>
@@ -187,6 +188,7 @@ const form = useForm({
     image: '',
     ingredients: [...props.recipe.ingredients],
     steps: [...props.recipe.steps],
+    ingredientIdDelete: []
 });
 
 
@@ -199,6 +201,7 @@ function update() {
     image: form.image,
     ingredients: form.ingredients,
     steps: form.steps,
+    ingredientIdDelete: form.ingredientIdDelete
 })}
 
 function lessPortion() {
@@ -228,6 +231,7 @@ function addStep() {
 function deleteIngredient(id) {
     if(id != null) {
         form.ingredients.splice(id - 1, 1);
+        form.ingredientIdDelete.push(id)
     } else {
         form.ingredients.pop();
     }
