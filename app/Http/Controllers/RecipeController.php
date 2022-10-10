@@ -39,6 +39,8 @@ class RecipeController extends Controller
 
     public function store(RecipeRequest $request)
     {
+        $request->validated();
+
         /*Change image dimension*/
         $path= $request->file('image');
             // Resize and encode to required type
@@ -120,7 +122,7 @@ class RecipeController extends Controller
         ]);
     }
 
-    public function update(Request $request, Recipe $recipe)
+    public function update(RecipeRequest $request, Recipe $recipe)
     {
         /*Cycle through ingredients and update them*/
         foreach ($request->ingredients as $index => $data) {
@@ -195,7 +197,7 @@ class RecipeController extends Controller
                 'image' => 'recipes/images/' . $filename,
             ]);
         } else {
-            $recipe->update( array_filter($request->all()) );
+            $recipe->update( array_filter($request->validated()) );
         }
     }
 

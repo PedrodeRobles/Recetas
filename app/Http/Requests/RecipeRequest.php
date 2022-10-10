@@ -18,6 +18,8 @@ class RecipeRequest extends FormRequest
             'description' => 'required|max:500',
             'portions'    => 'required|numeric',
             'image'       => 'required|image',
+            'ingredients' => 'required',
+            'steps'       => 'required'
         ];
     }
 }

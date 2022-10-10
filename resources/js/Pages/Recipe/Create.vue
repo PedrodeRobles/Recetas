@@ -7,7 +7,6 @@
             <h1 class="text-2xl text-center">
                 Nueva receta
             </h1>
-            {{ error }}
             <div v-show="mesagge != null" class="p-2 bg-green-500 text-white rounded-md">
                 <p>
                     {{ mesagge }}
@@ -20,7 +19,6 @@
                         type="text" 
                         v-model="form.name"
                         class="rounded-md border border-gray-500 w-full"
-                        required
                     >
                 </div>
                 <div>
@@ -35,7 +33,6 @@
                             type="number" 
                             v-model="form.portions"
                             class="rounded-md text-center"
-                            required
                             >
                         <img 
                             src="../../../img/plus.png" 
@@ -46,11 +43,11 @@
                 </div>
                 <div>
                     <p>Descripción</p>
-                    <textarea cols="34" rows="3" class="rounded-md" v-model="form.description" required></textarea>
+                    <textarea cols="34" rows="3" class="rounded-md" v-model="form.description" ></textarea>
                 </div>
                 <div>
                     <p>Foto</p>
-                    <input type="file" accept="image/*" ref="photo" required>
+                    <input type="file" accept="image/*" ref="photo" >
                 </div>
                 
                 <div>
@@ -71,10 +68,10 @@
                     </div>
                     <div class="flex items-center mb-2 md:space-x-4" v-for="ingredient in form.ingredients" :key="ingredient.id">
                         <div>
-                            <input v-model="ingredient.amount" type="number" class="w-20" required>
+                            <input v-model="ingredient.amount" type="number" class="w-20" >
                         </div>
                         <div>
-                            <select v-model="ingredient.unit_of_measurement" required>
+                            <select v-model="ingredient.unit_of_measurement">
                                 <option value="Al gusto">Al gusto</option>
                                 <option value="Gramo(S)">Gramo</option>
                                 <option value="Kilogramo(s)">Kilogramo</option>
@@ -87,7 +84,7 @@
                                 placeholder="Nombre"
                                 class="w-28"
                                 v-model="ingredient.ingredient"
-                                required
+                                
                                 >
                         </div>
                         <div>
@@ -156,6 +153,7 @@
                 <button class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-md">
                     Guardar
                 </button>
+                {{ errors }}
             </form>
         </div>
     </div>
@@ -172,7 +170,7 @@ export default {
         Link
     },
     props: {
-        error: String
+        errors: Object,
     },
     data() {
         return {
@@ -201,7 +199,11 @@ export default {
             this.form.ingredients = [];
             this.form.steps = [];
 
-            this.mesagge = "Receta guardada con éxito";
+            // if(this.errors) {
+            //     return this.mesagge = "Error";
+            // } else {
+            //     return this.mesagge = "Receta guardada con éxito";
+            // }
             return this.mesagge;
         },
         lessPortion() {
