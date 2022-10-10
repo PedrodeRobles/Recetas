@@ -143,16 +143,33 @@ class RecipeController extends Controller
 
         /*Cycle through steps and update them*/
         foreach ($request->steps as $index => $data) {
-            $recipe->steps[$index]->update([
-                'step' => $request->steps[$index]['step'],
-            ]);
+            
+            /*if step exists it is updated else it´s created*/
+            if( isset($request->steps[$index]['id']) == true) {
+                $recipe->steps[$index]->update([
+                    'step' => $request->steps[$index]['step'],
+                ]);
+            } else {
+                Step::create(
+                    ['recipe_id' => $recipe->id] 
+                    +
+                    $request->steps[$index]
+                );
+            }
         }
 
         /*Delete ingredient when select trash and save*/ 
         foreach ($request->ingredientIdDelete as $index => $data) {
-            $ingrediente = Ingredient::find($data);
-            $ingrediente->delete();
+            $ingredient = Ingredient::find($data);
+            $ingredient->delete();
         }
+
+        /*Delete step when select trash and save*/ 
+        foreach ($request->stepIdDelete as $index => $data) {
+            $step = Step::find($data);
+            $step->delete();
+        }
+
 
         if ($request->hasFile('image')) {
             Storage::delete('public/' . $recipe->image);

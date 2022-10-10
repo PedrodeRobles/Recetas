@@ -102,7 +102,7 @@
                     <div 
                         class="flex justify-center items-center space-x-2 mt-2 cursor-pointer"
                         @click="addIngredient()">
-                        {{ form.ingredientIdDelete }}
+                        <!-- {{ form.ingredientIdDelete }} -->
                         <p class="text-blue-600 hover:text-blue-500">
                             Agregar ingrediente
                         </p>
@@ -145,6 +145,7 @@
                             <p class="text-blue-600 hover:text-blue-500">
                                 Agregar paso
                             </p>
+                            <!-- {{ form.stepIdDelete }} -->
                             <img 
                                 src="../../../img/plus.png" 
                                 alt="Agregar ingrediente"
@@ -188,7 +189,8 @@ const form = useForm({
     image: '',
     ingredients: [...props.recipe.ingredients],
     steps: [...props.recipe.steps],
-    ingredientIdDelete: []
+    ingredientIdDelete: [],
+    stepIdDelete: []
 });
 
 
@@ -201,7 +203,8 @@ function update() {
     image: form.image,
     ingredients: form.ingredients,
     steps: form.steps,
-    ingredientIdDelete: form.ingredientIdDelete
+    ingredientIdDelete: form.ingredientIdDelete,
+    stepIdDelete: form.stepIdDelete
 })}
 
 function lessPortion() {
@@ -240,6 +243,7 @@ function deleteIngredient(id) {
 function deleteStep(id) {
     if(id != null) {
         form.steps.splice(id - 1, 1);
+        form.stepIdDelete.push(id)
     } else {
         form.steps.pop();
     }
