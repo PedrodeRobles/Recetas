@@ -1,4 +1,4 @@
-# PRE REQUSITOS
+# PRE REQUISITOS
 
 - Tener instalado un programa de entorno de desarrollo como Laragon (recomendado) ó XAMPP
 - Tener un manejador de bases de datos como MySQL workbench, phpMyAdmin ó DBeaver
@@ -74,11 +74,8 @@ En el caso de que aparezca en blanco podemos hacer lo siguiente:
  . Correr el comando: php artisan serve 
  . Copiar la url en el navegador. Ejemplo: http://127.0.0.1:8000
  *Matener este comando activo si queremos seguir manipulando y visualizando el proyecto en el navegador
-```
 
 
-
-```
 ### ERRORES
 
 - Si al correr el comando composer update ó composer install aparece un error comprobar que la version de php sea ^8.0.2|^8.1
