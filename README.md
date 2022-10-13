@@ -1,64 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PRE REQUSITOS
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- Tener instalado un programa de entorno de desarrollo como Laragon (recomendado) ó XAMPP
+- Tener un manejador de bases de datos como MySQL workbench, phpMyAdmin ó DBeaver
+- Instalar Composer
+- Tener una consola capaz de trabajar con comandos git
 
-## About Laravel
+## AJUSTE ARCHIVO DE HOSTS
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+*En el caso de utilizar Laragon esto se hace de forma automatica *
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Es necesario realizar las configuraciones DNS en el host local para el correcto mapeo de los nombres DNS con los virtualhost configurados.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Para esto es necesario agregar las siguientes entradas en el archivo:
 
-## Learning Laravel
+C:\Windows\System32\drivers\etc\hosts (Windows).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+/etc/hosts (linux / Mac , requiere sudo para su edición).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Mover la carpeta host al escritorio, darle a "continuar" y abrirlo con bloc de notas para poder agregar lo siguente:
 
-## Laravel Sponsors
+```
+127.0.0.1	Recetas.test
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## PASOS PARA CORRER EL PROYECTO EN LOCAL
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
+### Proyecto PORTAL-LARAVEL
+0- Iniciamos los servicios de Laragon ó los de XAMPP
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1- Dentro del repositorio del proyecto en Github accedemos al botón verde que dice "Code" y copiamos la URL de HTTPS
 
-## Code of Conduct
+2- En la terminar nos dirigimos a la siguiente ruta C:\laragon\www ó C:\xampp\htdocs 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3- Escribimos lo siguiente: git clone https://github.com/PedrodeRobles/Recetas.git
 
-## Security Vulnerabilities
+4- Despues accedemos al proyecto en la terminal: cd Recetas\
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5- Escribir: composer install
 
-## License
+6- Escribir: composer update
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7- Abrir el proyecto en el editor de código
+
+8- Copiar el archivo .env.example, pegarlo a la misma altura y renombrarlo a .env
+
+9- Abrimos el .env y en esta sección declaramos el nombre de la base de datos, el usuario y el password
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=recetas
+DB_USERNAME=root
+DB_PASSWORD=
+
+10- En el manejador de bases de datos creamos la conección con los mismos datos que estan en el paso anterior
+
+11- Volvemos a la terminal y corremos el siguiente comando: php artisan migrate
+*En este paso migramos las tablas y sus columnas al manejador de bases de datos
+
+12- Corremos el siguente comando: php artisan key:generate
+
+13- Escribimos: php artisan storage:link
+
+14- Escribimos: npm install
+
+15- Ahora: npm run dev
+*Este comando debe permancer activo para poder ejecutar los cambios que se vayan haciendo en el proyecto
+
+16- Vamos al navegador y nos dirigimos a recetas.test
+En el caso de que aparezca en blanco podemos hacer lo siguiente:
+ . Abrimos otra terminal con la ruta del proyecto
+ . Correr el comando: php artisan serve 
+ . Copiar la url en el navegador. Ejemplo: http://127.0.0.1:8000
+ *Matener este comando activo si queremos seguir manipulando y visualizando el proyecto en el navegador
+```
+
+
+
+```
+### ERRORES
+
+- Si al correr el comando composer update ó composer install aparece un error comprobar que la version de php sea ^8.0.2|^8.1
+para saber la version que estamos utilizando podemos correr el comando: php -v
+
+- Si el npm install no funciona verificar que la version sea la 8.18 por lo menos. Para ver la versión podemos correro el comando: npm -v
+
+- Si no se migran las tablas debemos verificar que los datos sean identicos a los que declaramos en el archivo .env
+DB_DATABASE=recetas
+DB_USERNAME=root
+DB_PASSWORD=
+
+Nombre de la base de datos: recetas
+username: root
+password:
+```
