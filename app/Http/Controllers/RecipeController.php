@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RecipeRequest;
+use App\Http\Requests\RecipeStoreRequest;
+use App\Http\Requests\RecipeUpdateRequest;
 use App\Models\Recipe;
 use App\Models\Ingredient;
 use App\Models\Step;
@@ -37,7 +38,7 @@ class RecipeController extends Controller
         return Inertia::render('Recipe/Create');
     }
 
-    public function store(RecipeRequest $request)
+    public function store(RecipeStoreRequest $request)
     {
         $request->validated();
 
@@ -82,6 +83,8 @@ class RecipeController extends Controller
                 $request->steps[$index]
             );
         }
+
+        return redirect()->route('recipe.index');
     }
 
     public function show(Recipe $recipe)
@@ -122,7 +125,7 @@ class RecipeController extends Controller
         ]);
     }
 
-    public function update(RecipeRequest $request, Recipe $recipe)
+    public function update(RecipeUpdateRequest $request, Recipe $recipe)
     {
         /*Cycle through ingredients and update them*/
         foreach ($request->ingredients as $index => $data) {
@@ -199,6 +202,8 @@ class RecipeController extends Controller
         } else {
             $recipe->update( array_filter($request->validated()) );
         }
+
+        return redirect()->route('recipe.index');
     }
 
     public function destroy(Recipe $recipe)

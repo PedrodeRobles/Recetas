@@ -153,7 +153,6 @@
                 <button class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-md">
                     Guardar
                 </button>
-                {{ errors }}
             </form>
         </div>
     </div>
