@@ -66,7 +66,7 @@
                         </p>
                         <p></p>
                     </div>
-                    <div class="flex items-center mb-2 md:space-x-4" v-for="ingredient in form.ingredients" :key="ingredient.id">
+                    <div class="flex items-center mb-2 md:space-x-4" v-for="(ingredient, index) in form.ingredients" :key="index">
                         <div>
                             <input v-model="ingredient.amount" type="number" class="w-20" >
                         </div>
@@ -92,7 +92,7 @@
                                 src="../../../img/trash.png" 
                                 alt="Borrar"
                                 class="bg-red-600 p-1 hover:bg-red-500 w-10 rounded-md ml-1"
-                                @click="deleteIngredient(ingredient.id)"   
+                                @click="deleteIngredient(index)"   
                             >
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                         </h2>
                         <div 
                             class="flex space-x-2 items-end space-y-4"
-                            v-for="step in form.steps" :key="step.id"
+                            v-for="(step, index) in form.steps" :key="index"
                         >
                             <div>
                                 <input 
@@ -131,7 +131,7 @@
                                     src="../../../img/trash.png" 
                                     alt="Borrar"
                                     class="bg-red-600 p-1 hover:bg-red-500 w-9 rounded-md"
-                                    @click="deleteStep(step.id)"   
+                                    @click="deleteStep(index)"   
                                 >
                             </div>
                         </div>
@@ -225,11 +225,11 @@ export default {
                 step: "",
             });
         },
-        deleteIngredient(id) {
-            this.form.ingredients.splice(id, 1);
+        deleteIngredient(index) {
+            this.form.ingredients.splice(index, 1);
         },
-        deleteStep(id) {
-            this.form.steps.splice(id, 1);
+        deleteStep(index) {
+            this.form.steps.splice(index, 1);
         },
     },
 }

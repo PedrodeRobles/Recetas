@@ -69,7 +69,7 @@
                         </p>
                         <p></p>
                     </div>
-                    <div class="flex items-center mb-2 md:space-x-4" v-for="ingredient in form.ingredients" :key="ingredient.id">
+                    <div class="flex items-center mb-2 md:space-x-4" v-for="(ingredient, index) in form.ingredients" :key="index">
                         <div>
                             <input v-model="ingredient.amount" type="number" class="w-20" required>
                         </div>
@@ -95,14 +95,13 @@
                                 src="../../../img/trash.png" 
                                 alt="Borrar"
                                 class="bg-red-600 p-1 hover:bg-red-500 w-10 rounded-md ml-1"
-                                @click="deleteIngredient(ingredient.id)"   
+                                @click="deleteIngredient(index)"   
                             >
                         </div>
                     </div>
                     <div 
                         class="flex justify-center items-center space-x-2 mt-2 cursor-pointer"
                         @click="addIngredient()">
-                        <!-- {{ form.ingredientIdDelete }} -->
                         <p class="text-blue-600 hover:text-blue-500">
                             Agregar ingrediente
                         </p>
@@ -120,7 +119,7 @@
                         </h2>
                         <div 
                             class="flex space-x-2 items-end space-y-4"
-                            v-for="step in form.steps" :key="step.id"
+                            v-for="(step, index) in form.steps" :key="index"
                         >
                             <div>
                                 <input 
@@ -135,7 +134,7 @@
                                     src="../../../img/trash.png" 
                                     alt="Borrar"
                                     class="bg-red-600 p-1 hover:bg-red-500 w-9 rounded-md"
-                                    @click="deleteStep(step.id)" 
+                                    @click="deleteStep(index)" 
                                 >
                             </div>
                         </div>
@@ -145,7 +144,6 @@
                             <p class="text-blue-600 hover:text-blue-500">
                                 Agregar paso
                             </p>
-                            <!-- {{ form.stepIdDelete }} -->
                             <img 
                                 src="../../../img/plus.png" 
                                 alt="Agregar ingrediente"
@@ -203,8 +201,8 @@ function update() {
     image: form.image,
     ingredients: form.ingredients,
     steps: form.steps,
-    ingredientIdDelete: form.ingredientIdDelete,
-    stepIdDelete: form.stepIdDelete
+    // ingredientIdDelete: form.ingredientIdDelete,
+    // stepIdDelete: form.stepIdDelete
 })}
 
 function lessPortion() {
@@ -231,22 +229,30 @@ function addStep() {
     });
 }
 
-function deleteIngredient(id) {
-    if(id != null) {
-        form.ingredients.splice(id - 1, 1);
-        form.ingredientIdDelete.push(id)
-    } else {
-        form.ingredients.pop();
-    }
+// function deleteIngredient(id) {
+//     if(id != null) {
+//         form.ingredients.splice(id - 1, 1);
+//         form.ingredientIdDelete.push(id)
+//     } else {
+//         form.ingredients.pop();
+//     }
+// }
+
+// function deleteStep(index) {
+//     if(index != null) {
+//         form.steps.splice(index - 1, 1);
+//         form.stepIdDelete.push(index)
+//     } else {
+//         form.steps.pop();
+//     }
+// }
+
+function deleteIngredient(index) {
+        form.ingredients.splice(index, 1);
 }
 
-function deleteStep(id) {
-    if(id != null) {
-        form.steps.splice(id - 1, 1);
-        form.stepIdDelete.push(id)
-    } else {
-        form.steps.pop();
-    }
+function deleteStep(index) {
+    form.steps.splice(index, 1);
 }
 
 // export default {
