@@ -162,17 +162,22 @@ class RecipeController extends Controller
                 );
             }
         }
+        // dd($request->ingredientIdDelete);
 
         /*Delete ingredient when select trash and save*/ 
-        foreach ($request->ingredientIdDelete as $index => $data) {
-            $ingredient = Ingredient::find($data);
-            $ingredient->delete();
+        if ($request->ingredientIdDelete != null) {
+            foreach ($request->ingredientIdDelete as $index => $data) {
+                $ingredient = Ingredient::find($data);
+                $ingredient->delete();
+            }
         }
 
         /*Delete step when select trash and save*/ 
-        foreach ($request->stepIdDelete as $index => $data) {
-            $step = Step::find($data);
-            $step->delete();
+        if ($request->stepIdDelete != null) {
+            foreach ($request->stepIdDelete as $index => $data) {
+                $step = Step::find($data);
+                $step->delete();
+            }
         }
 
 

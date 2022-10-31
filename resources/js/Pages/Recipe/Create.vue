@@ -191,18 +191,18 @@ export default {
             }
             this.$inertia.post(this.route('recipe.store'), this.form);
             
-            this.form.name = '';
-            this.form.description = '';
-            this.form.portions = 1;
-            this.form.image = '';
-            this.form.ingredients = [];
-            this.form.steps = [];
+            // this.form.name = '';
+            // this.form.description = '';
+            // this.form.portions = 1;
+            // this.form.image = '';
+            // this.form.ingredients = [];
+            // this.form.steps = [];
 
-            // if(this.errors) {
-            //     return this.mesagge = "Error";
-            // } else {
-            //     return this.mesagge = "Receta guardada con éxito";
-            // }
+            if(this.errors) {
+                return this.mesagge = "Error";
+            } else {
+                return this.mesagge = "Receta guardada con éxito";
+            }
             return this.mesagge;
         },
         lessPortion() {

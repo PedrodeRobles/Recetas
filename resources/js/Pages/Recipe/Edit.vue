@@ -95,7 +95,7 @@
                                 src="../../../img/trash.png" 
                                 alt="Borrar"
                                 class="bg-red-600 p-1 hover:bg-red-500 w-10 rounded-md ml-1"
-                                @click="deleteIngredient(index)"   
+                                @click="deleteIngredient(index, ingredient.id)"   
                             >
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                                     src="../../../img/trash.png" 
                                     alt="Borrar"
                                     class="bg-red-600 p-1 hover:bg-red-500 w-9 rounded-md"
-                                    @click="deleteStep(index)" 
+                                    @click="deleteStep(index, step.id)" 
                                 >
                             </div>
                         </div>
@@ -201,8 +201,8 @@ function update() {
     image: form.image,
     ingredients: form.ingredients,
     steps: form.steps,
-    // ingredientIdDelete: form.ingredientIdDelete,
-    // stepIdDelete: form.stepIdDelete
+    ingredientIdDelete: form.ingredientIdDelete,
+    stepIdDelete: form.stepIdDelete
 })}
 
 function lessPortion() {
@@ -247,12 +247,22 @@ function addStep() {
 //     }
 // }
 
-function deleteIngredient(index) {
+function deleteIngredient(index, ingredient_id) {
+    if(index != null) {
         form.ingredients.splice(index, 1);
+        form.ingredientIdDelete.push(ingredient_id);
+    } else {
+        form.ingredients.pop();
+    }
 }
 
-function deleteStep(index) {
-    form.steps.splice(index, 1);
+function deleteStep(index, step_id) {
+    if(index != null) {
+        form.steps.splice(index, 1);
+        form.stepIdDelete.push(step_id);
+    } else {
+        form.steps.pop();
+    }
 }
 
 // export default {

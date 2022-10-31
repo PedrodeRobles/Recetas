@@ -28,7 +28,8 @@ class RecipeUpdateRequest extends FormRequest
             'description' => 'required|max:500',
             'portions'    => 'required|numeric',
             'ingredients' => 'required',
-            'steps'       => 'required'
+            'steps'       => 'required',
+            // 'image'       => 'required'
         ];
     }
 }
