@@ -7,14 +7,17 @@
             <h1 class="text-2xl text-center">
                 Nueva receta
             </h1>
-            <div v-show="mesagge != null" class="p-2 bg-green-500 text-white rounded-md">
+            <div v-show="mesagge != null" :class="error ? 'p-2 bg-red-600 text-white rounded-md' : 'p-2 bg-green-500 text-white rounded-md'">
                 <p>
                     {{ mesagge }}
                 </p>
+                <div v-for="error in errors">
+                    <p>- {{ error }}</p>
+                </div>
             </div>
             <form @submit.prevent="submit" class="mt-10 space-y-4">
                 <div>
-                    <p>Nombre</p>
+                    <p>Nombre *</p>
                     <input 
                         type="text" 
                         v-model="form.name"
@@ -22,7 +25,7 @@
                     >
                 </div>
                 <div>
-                    <p>Porciones</p>
+                    <p>Porciones *</p>
                     <div class="flex space-x-2">
                         <img 
                             src="../../../img/less.png" 
@@ -42,17 +45,17 @@
                     </div>
                 </div>
                 <div>
-                    <p>Descripción</p>
+                    <p>Descripción *</p>
                     <textarea cols="34" rows="3" class="rounded-md" v-model="form.description" ></textarea>
                 </div>
                 <div>
-                    <p>Foto</p>
+                    <p>Foto *</p>
                     <input type="file" accept="image/*" ref="photo" >
                 </div>
                 
                 <div>
                     <h2 class="text-xl text-center">
-                        Ingredientes
+                        Ingredientes *
                     </h2>
                     <div class="flex justify-around">
                         <p>
@@ -112,7 +115,7 @@
                 <div class="flex justify-center">
                     <div>
                         <h2 class="text-xl text-center">
-                            Pasos
+                            Pasos *
                         </h2>
                         <div 
                             class="flex space-x-2 items-end space-y-4"
@@ -182,6 +185,7 @@ export default {
                 steps: [],
             },
             mesagge: null,
+            error: null
         }
     },
     methods: {
@@ -199,11 +203,12 @@ export default {
             // this.form.steps = [];
 
             if(this.errors) {
-                return this.mesagge = "Error";
+                this.error = true;
+                return this.mesagge = "Error | Los siguente campos son requeridos:";
             } else {
+                this.error = false;
                 return this.mesagge = "Receta guardada con éxito";
             }
-            return this.mesagge;
         },
         lessPortion() {
             if (this.form.portions != 1) {

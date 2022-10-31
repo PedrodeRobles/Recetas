@@ -7,11 +7,13 @@
             <h1 class="text-2xl text-center">
                 Editar receta
             </h1>
-            {{ error }}
-            <div v-show="mesagge != null" class="p-2 bg-green-500 text-white rounded-md">
-                <p>
+            <div v-show="errors != null" class=" bg-red-600 text-white rounded-md">
+                <!-- <p>
                     {{ mesagge }}
-                </p>
+                </p> -->
+                <div v-for="error in errors">
+                    <p class="p-2">- {{ error }}</p>
+                </div>
             </div>
             <form @submit.prevent="update" class="mt-10 space-y-4">
                 <div>
@@ -20,7 +22,7 @@
                         type="text" 
                         v-model="form.name"
                         class="rounded-md border border-gray-500 w-full"
-                        required
+                        
                     >
                 </div>
                 <div>
@@ -178,6 +180,7 @@ defineComponent({
 
 const props = defineProps({
     recipe: Object,
+    errors: Object,
 });
 
 const form = useForm({
@@ -191,6 +194,20 @@ const form = useForm({
     stepIdDelete: []
 });
 
+let mesagge = null
+let error = "hi"
+
+// function infoForUser() {
+    // Object.keys(props.errors).forEach(element => {
+    //     if(element != null) {
+    //         error = true;
+    //         mesagge = "Error | Los siguente campos son requeridos:";
+    //     } else {
+    //         error = false;
+    //         mesagge = "Receta guardada con éxito";
+    //     }
+    // });
+// }
 
 function update() {
     Inertia.post(`/receta/${props.recipe.id}`, {
@@ -203,7 +220,8 @@ function update() {
     steps: form.steps,
     ingredientIdDelete: form.ingredientIdDelete,
     stepIdDelete: form.stepIdDelete
-})}
+    })
+}
 
 function lessPortion() {
     if (form.portions != 1) {
@@ -228,24 +246,6 @@ function addStep() {
         step: "",
     });
 }
-
-// function deleteIngredient(id) {
-//     if(id != null) {
-//         form.ingredients.splice(id - 1, 1);
-//         form.ingredientIdDelete.push(id)
-//     } else {
-//         form.ingredients.pop();
-//     }
-// }
-
-// function deleteStep(index) {
-//     if(index != null) {
-//         form.steps.splice(index - 1, 1);
-//         form.stepIdDelete.push(index)
-//     } else {
-//         form.steps.pop();
-//     }
-// }
 
 function deleteIngredient(index, ingredient_id) {
     if(index != null) {
