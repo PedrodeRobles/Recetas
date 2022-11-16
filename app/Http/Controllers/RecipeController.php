@@ -57,19 +57,19 @@ class RecipeController extends Controller
         /*-----*/
 
 
-        Recipe::create([
+        $recipe = Recipe::create([
             'name' => $request->name,
             'description' => $request->description,
             'portions' => $request->portions,
             'image' => 'recipes/images/' . $filename,
         ]);
-
-        $lastRecipe = Recipe::select('id')->orderBy('id', 'desc')->first();
+        // dd($recipe->id);
+        // $lastRecipe = Recipe::select('id')->orderBy('id', 'desc')->first();
 
         /*Cycle through ingredients and save them*/
         foreach ($request->ingredients as $index => $data) {
             Ingredient::create(
-                ['recipe_id' => $lastRecipe->id] 
+                ['recipe_id' => $recipe->id] 
                 +
                 $request->ingredients[$index]
             );
@@ -78,7 +78,7 @@ class RecipeController extends Controller
         /*Cycle through steps and save them*/
         foreach ($request->steps as $index => $data) {
             Step::create(
-                ['recipe_id' => $lastRecipe->id] 
+                ['recipe_id' => $recipe->id] 
                 +
                 $request->steps[$index]
             );
