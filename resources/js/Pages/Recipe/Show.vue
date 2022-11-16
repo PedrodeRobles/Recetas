@@ -79,12 +79,12 @@
                     <h2 class="text-[2rem] text-center">
                         Preparación
                     </h2>
-                    <div v-for="step in recipe[0].steps" :key="step.id">
+                    <div v-for="(step, index) in recipe[0].steps" :key="step.id">
                         <div class="flex items-center mt-2 space-x-3">
                             <input type="checkbox"> 
                             <div>
                                 <p>
-                                    Paso #
+                                    Paso {{ index + 1 }}
                                 </p>
                                 <p class="text-gray-800 w-80">
                                     {{ step.step }}
